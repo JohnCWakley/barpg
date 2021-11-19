@@ -1,9 +1,8 @@
+import GetGlobalEventsInstance from '../util/multi-event-emitter';
 import { AmbientLight, BoxGeometry, Fog, Mesh, MeshStandardMaterial, PointLight, Scene, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three';
 import { Actor } from '../actor';
 import { CameraRig } from '../camera_rig';
-import { randi, seed } from '../util/rng';
-import { generate_cavern, rand_2d_buffer } from '../util/procedural';
-import GetGlobalEventsInstance from '../util/multi-event-emitter';
+import { randi } from '../util/rng';
 
 const MAP_SIZE = 64;
 
@@ -13,7 +12,6 @@ const xy = (x, y) => (`${x}x${y}`);
 export default function GenerateScene_Prototype_01() {
     return new Promise((res, rej) => {
         events.on('level', (data) => {
-            seed(47);
 
             const scene = new Scene();
             // scene.fog = new Fog('black', 2, 4);
