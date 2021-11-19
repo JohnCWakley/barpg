@@ -3,5 +3,7 @@ import GenerateScene_Prototype_01 from './scenes/prototype_01';
 
 GetClientInstance().initialize();
 
-const { scene, camera } = GenerateScene_Prototype_01();
-GetClientInstance().loadScene(scene, camera);
+GenerateScene_Prototype_01().then((data) => {
+    const { scene, camera } = data;
+    GetClientInstance().loadScene(scene, camera);
+})
