@@ -13,8 +13,8 @@ export class CameraRig extends Group {
         super();
 
         this.sensitivity = 0.01;
-        this.min_distance = 0.1;
-        this.max_distance = 20.0;
+        this.min_distance = 1.0;
+        this.max_distance = 10.0;
         this.min_angle = deg2rad(-90);
         this.max_angle = deg2rad(0);
 
@@ -45,6 +45,7 @@ export class CameraRig extends Group {
 
         events.on('input_mouse_wheel', evt => {
             this.camera.position.z = clamp(this.camera.position.z + (evt.deltaY * this.sensitivity), this.min_distance, this.max_distance);
+            console.debug('distance:', this.camera.position.z);
         });
     }
 }
