@@ -1,8 +1,9 @@
 import GetGlobalEventsInstance from '../util/multi-event-emitter';
-import { AmbientLight, BoxGeometry, Fog, Mesh, MeshStandardMaterial, PointLight, Scene, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three';
+import { AmbientLight, BoxGeometry, Fog, Mesh, MeshStandardMaterial, PlaneGeometry, PointLight, Scene, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three';
 import { Actor } from '../actor';
 import { CameraRig } from '../camera_rig';
 import { randi } from '../util/rng';
+import { deg2rad } from '../util/math';
 
 const MAP_SIZE = 64;
 
@@ -15,6 +16,17 @@ export default function GenerateScene_Prototype_01() {
 
             const scene = new Scene();
             // scene.fog = new Fog('black', 2, 4);
+
+            const ambient_light = new AmbientLight(0xffffff, 1.0);
+            scene.add(ambient_light);
+
+            const floor = new Mesh(
+                new PlaneGeometry(data.size, data.size, data.size - 1, data.size - 1),
+                new MeshStandardMaterial({ color: 0x5555ff })
+            );
+            floor.rotateX(deg2rad(-90));
+            floor.position.y -= 1;
+            scene.add(floor);
 
             const cameraRig = new CameraRig();
             const offset = new Vector3(data.size / 2, 0, data.size / 2);
@@ -36,13 +48,10 @@ export default function GenerateScene_Prototype_01() {
                 }
             }
 
-            const ambient_light = new AmbientLight(0xffffff, 1.0);
-            scene.add(ambient_light);
-
             const player = new Actor();
             player.add(cameraRig);
 
-            const torch = new PointLight(0xffffff, 10.5, 10);
+            const torch = new PointLight(0xffffff, 0.01, 10);
             player.add(torch);
 
             const plr_tex = (new TextureLoader()).load('images/knight.png');
@@ -51,6 +60,7 @@ export default function GenerateScene_Prototype_01() {
             spr.scale.x = 0.5;
             spr.scale.y = 0.5;
             spr.scale.z = 0.5;
+            player.position.y -= 0.5;
             player.add(spr);
 
             scene.add(player);
@@ -65,6 +75,7 @@ export default function GenerateScene_Prototype_01() {
                 ghost_spr.scale.x = 0.5;
                 ghost_spr.scale.y = 0.5;
                 ghost_spr.scale.z = 0.5;
+                ghost.position.y -= 0.5;
                 ghost.add(ghost_spr);
 
                 var placed = false;
