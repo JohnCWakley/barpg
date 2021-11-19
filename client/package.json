@@ -1,0 +1,22 @@
+{
+    "name": "barpg-client",
+    "version": "0.1.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development webpack watch --mode=development"
+    },
+    "keywords": [],
+    "author": "knuckleheadgames.com",
+    "license": "UNLICENSED",
+    "private": true,
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "webpack": "^5.31.0",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {
+        "three": "^0.127.0"
+    }
+}
